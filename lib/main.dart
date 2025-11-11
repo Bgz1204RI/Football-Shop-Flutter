@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'screens/menu.dart';
+import 'screens/add_product_form.dart';
 
 void main() {
   runApp(const FootballShopApp());
@@ -17,18 +19,18 @@ class FootballShopApp extends StatelessWidget {
       ),
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
+
+      routes: {
+        '/products': (_) => const MenuPage(),              // All Products
+        '/my-products': (_) => const MenuPage(),
+        '/create-product': (_) => const AddProductFormPage(), // Create Product (form)
+      },
     );
   }
 }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  void _showSnack(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(msg)));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +47,21 @@ class HomePage extends StatelessWidget {
                 icon: const Icon(Icons.list),
                 label: const Text('All Products'),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                onPressed: () =>
-                    _showSnack(context, 'You have pressed the All Products button'),
+                onPressed: () => Navigator.pushNamed(context, '/products'),
               ),
               const SizedBox(height: 12),
               ElevatedButton.icon(
                 icon: const Icon(Icons.shopping_bag),
                 label: const Text('My Products'),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () =>
-                    _showSnack(context, 'You have pressed the My Products button'),
+                onPressed: () => Navigator.pushNamed(context, '/my-products'),
               ),
               const SizedBox(height: 12),
               ElevatedButton.icon(
                 icon: const Icon(Icons.add),
                 label: const Text('Create Product'),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () =>
-                    _showSnack(context, 'You have pressed the Create Product button'),
+                onPressed: () => Navigator.pushNamed(context, '/create-product'),
               ),
             ],
           ),
